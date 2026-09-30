@@ -4,6 +4,8 @@ Message Orientated Design は、**状態を持つ独立した主体が、相手�
 
 このリポジトリでは、現代一般に使われる「オブジェクト指向」という語との混同を避けるため、この考え方を **Message Orientated Design / メッセージ指向設計** と呼びます。
 
+歴史的な出発点と、このプロジェクト独自の仕様は分けて記述しています。
+
 ## Core idea
 
 ```text
@@ -41,8 +43,18 @@ Message Manager は宛先を見て配送します。大規模なシステムで�
 - [日本語 / Japanese — canonical](docs/jp/README.md)
 - [English](docs/en/README.md)
 
+まず [オブジェクト指向の原型](docs/jp/00-object-orientation-origins.md) と [Message Orientated Design とは](docs/jp/01-what-is-message-orientated-design.md) を参照してください。
+
+## Checker
+
+Checker は独立した付属サブプロジェクトとして分離しています。
+
+- [Message Orientated Design Checker](message-orientated-design-checker/README.md)
+
+Checker 固有の検査ルール・解析方法・設定・CI 連携などは、Checker 側の `docs/` で管理します。
+
 ## Repository scope
 
 このリポジトリの本体は設計思想と仕様を記述する文書です。
 
-将来的に、この設計に沿っているかを確認する checker を付属させますが、checker 自体がこのプロジェクトの中心ではありません。
+Checker はその設計に沿っているかを確認するための付属品であり、Checker の実装都合が本体仕様を決めることはありません。
