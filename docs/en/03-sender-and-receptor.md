@@ -1,58 +1,26 @@
-# 03. Message Sender and Message Receptor
+# 03. Message Sender / Receptor
 
-## Every object has a communication boundary
+Each object has a Sender and Receptor at its external boundary.
 
-Each object has a Message Sender and a Message Receptor as its boundary with the outside world.
+    Message -> Receptor -> internal function
+    internal processing -> Sender -> Message
 
-    Incoming Message
-          |
-          v
-    Message Receptor
-          |
-          v
-    Object internal functions / state machine
-          |
-          v
-    Message Sender
-          |
-          v
-    Outgoing Message
+## Receptor
 
-## Responsibilities of the Message Receptor
+The Receptor only:
 
-The Message Receptor has deliberately limited responsibilities.
+1. receives a Message;
+2. identifies its type;
+3. invokes the corresponding internal function.
 
-1. Receive a message addressed to the object.
-2. Identify the message kind.
-3. Invoke the corresponding internal function.
+Example:
 
-For example, suppose dog's Receptor receives:
+    type: move
+        ↓
+    move_request(...)
 
-    owner, dog, move, 100, 0
+Validation, state checks, and authorization belong to the internal processing function, not the Receptor.
 
-The Receptor invokes the internal function corresponding to the move message:
+## Sender
 
-    move_request(owner, 100, 0)
-
-This is the point where an ordinary function call begins.
-
-## What the Receptor does not do
-
-The Receptor does not make semantic decisions such as:
-
-- whether 100, 0 is a valid value;
-- whether the dog can move in its current state;
-- whether owner is allowed to request the move;
-- what should be sent on success or failure.
-
-Those decisions belong to the called processing function, such as move_request.
-
-The Receptor is the conversion boundary from a message to an internal function call, not a place for domain logic.
-
-## Responsibilities of the Message Sender
-
-The Message Sender is the object's exit point for messages.
-
-Instead of directly invoking another object's functions, it emits a message containing the sender, recipient, message kind, arguments, and any other required fields.
-
-If a request is invalid, the rejection is also sent through the Sender as a message when a response is required.
+The Sender is the only exit for external Messages. It does not directly invoke another object's internal functions.
